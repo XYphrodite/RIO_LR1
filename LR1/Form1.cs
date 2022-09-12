@@ -48,7 +48,6 @@ namespace LR1
             dataGridView1.Columns.Add("Email", "Email");
         }
 
-        //myDbContext context;
         SqlWorker context;
         public Form1()
         {
@@ -58,24 +57,19 @@ namespace LR1
 
         private void ShowUsersButton_Click(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
             List<UserModel> list = context.getListOfMembers();
             CreateColumns();
             DataTable table = ToDataTable<UserModel>(list);
 
-            //foreach (var l in list)
-            //{
-            //    table.Rows.Add(l.id, l.Name, l.Email);
-            //    //dataGridView1.Rows.Add(l.id.ToString(), l.Name.ToString(), l.Email.ToString());
-            //}
+            foreach (var l in list)
+            {
+                dataGridView1.Rows.Add(l.id, l.Name, l.Email);
+            }
 
 
 
-            //using (var reader = ObjectReader.Create(list))
-            //{
-            //    table.Load(reader);
-            //}
-
-            dataGridView1.DataSource = table;
         }
     }
 }
