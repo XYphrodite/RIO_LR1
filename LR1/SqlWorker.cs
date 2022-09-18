@@ -44,16 +44,37 @@ namespace LR1
             {
                 UserModel u = new UserModel();
                 u.Name = (string)reader["Name"];
-                u.id = (string)reader["id"];
+                u.id = (int)reader["id"];
                 u.Email = (string)reader["Email"];
                 list.Add(u);
             }
             CloseConnection();
             return list;
         }
+
+        public void InsertUser(UserModel model)
+        {
+            tryConnect();
+            string queryString = $"INSERT INTO [RIO1].[dbo].[Users] (Name, Email) VALUES ('{model.Name}', '{model.Email}');";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            CloseConnection();
+        }
+
+        internal void DeleteUser(int id)
+        {
+            tryConnect();
+            string queryString = $"DELETE FROM [RIO1].[dbo].[Users] WHERE id='{id}';";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            CloseConnection();
+        }
+
         private void CloseConnection()
         {
             sqlConnection.Close();
         }
+
+        
     }
 }

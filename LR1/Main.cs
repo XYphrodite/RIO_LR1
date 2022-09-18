@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace LR1
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
 
         private void CreateColumns()
@@ -25,18 +25,18 @@ namespace LR1
             dataGridView1.Columns.Add("Email", "Email");
         }
 
-        SqlWorker context;
-        public Form1()
+        SqlWorker repo;
+        public Main()
         {
             InitializeComponent();
-            context = new SqlWorker();
+            repo = new SqlWorker();
         }
 
         private void ShowUsersButton_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
-            List<UserModel> list = context.getListOfMembers();
+            List<UserModel> list = repo.getListOfMembers();
             CreateColumns();
 
             foreach (var l in list)
@@ -46,6 +46,22 @@ namespace LR1
 
 
 
+        }
+
+        private void InsertUserButton_Click(object sender, EventArgs e)
+        {
+            var inserUserForm = new InsertUserFrom();
+            inserUserForm.Show();
+        }
+
+        private void DeleteUserButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow item in this.dataGridView1.SelectedRows)
+            {
+                dataGridView1.Rows.RemoveAt(item.Index);
+                new SqlWorker().DeleteUser((int)item.Cells[0].Value);
+                
+            }
         }
     }
 }
