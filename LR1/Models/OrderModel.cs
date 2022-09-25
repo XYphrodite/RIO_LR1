@@ -11,8 +11,7 @@ namespace LR1.Models
     {
         [Key]
         public string id { get; set; }
-        public string OrderId { get; set; }
-        public string ItemId { get; set; }
+        public string OrderItemId { get; set; }
         public int amount { get; set; }
         public int Price { get; set; }
     }

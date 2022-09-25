@@ -32,6 +32,8 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.InsertUserButton = new System.Windows.Forms.Button();
             this.DeleteUserButton = new System.Windows.Forms.Button();
+            this.showOrdersButton = new System.Windows.Forms.Button();
+            this.showItemsBitton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,11 +75,33 @@
             this.DeleteUserButton.UseVisualStyleBackColor = true;
             this.DeleteUserButton.Click += new System.EventHandler(this.DeleteUserButton_Click);
             // 
+            // showOrdersButton
+            // 
+            this.showOrdersButton.Location = new System.Drawing.Point(94, 169);
+            this.showOrdersButton.Name = "showOrdersButton";
+            this.showOrdersButton.Size = new System.Drawing.Size(75, 23);
+            this.showOrdersButton.TabIndex = 5;
+            this.showOrdersButton.Text = "Show orders";
+            this.showOrdersButton.UseVisualStyleBackColor = true;
+            this.showOrdersButton.Click += new System.EventHandler(this.showOrdersButton_Click);
+            // 
+            // showItemsBitton
+            // 
+            this.showItemsBitton.Location = new System.Drawing.Point(176, 168);
+            this.showItemsBitton.Name = "showItemsBitton";
+            this.showItemsBitton.Size = new System.Drawing.Size(75, 23);
+            this.showItemsBitton.TabIndex = 6;
+            this.showItemsBitton.Text = "Show items";
+            this.showItemsBitton.UseVisualStyleBackColor = true;
+            this.showItemsBitton.Click += new System.EventHandler(this.showItemsBitton_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(425, 260);
+            this.Controls.Add(this.showItemsBitton);
+            this.Controls.Add(this.showOrdersButton);
             this.Controls.Add(this.DeleteUserButton);
             this.Controls.Add(this.InsertUserButton);
             this.Controls.Add(this.dataGridView1);
@@ -94,6 +118,8 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button InsertUserButton;
         private System.Windows.Forms.Button DeleteUserButton;
+        private System.Windows.Forms.Button showOrdersButton;
+        private System.Windows.Forms.Button showItemsBitton;
     }
 }
 

@@ -12,6 +12,5 @@ namespace LR1.Models
         [Key]
         public string id { get; set; }
         public string Name { get; set; }
-        public string MakerId { get; set; }
     }
 }

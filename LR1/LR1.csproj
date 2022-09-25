@@ -71,8 +71,8 @@
       <DependentUpon>InsertUserFrom.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ItemModel.cs" />
+    <Compile Include="Models\OrderItemModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
-    <Compile Include="Models\MakerModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserOrderModel.cs" />
     <Compile Include="Program.cs" />
