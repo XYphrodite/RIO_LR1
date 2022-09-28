@@ -88,7 +88,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "InsertUserFrom";
-            this.Text = "Form2";
+            this.Text = "InsertUser";
             this.ResumeLayout(false);
             this.PerformLayout();
 

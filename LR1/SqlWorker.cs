@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LR1
 {
@@ -59,6 +60,40 @@ namespace LR1
             SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
             sqlCommand.ExecuteNonQuery();
             CloseConnection();
+        }
+
+        public void InsertOrder(OrderModel model, string userId)
+        {
+            tryConnect();
+            //insert order
+            string queryString = $"INSERT INTO [RIO1].[dbo].[Orders] (OrderItemId, amount, Price) VALUES ('{model.OrderItemId}', '{model.amount}', '{model.Price}');";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            string modelId = GetOrderIdByModel(model);
+            if (modelId != null)
+            {
+                queryString = $"INSERT INTO [RIO1].[dbo].[UserOrder] (userId, ModelId) VALUES ('{userId}', '{modelId}');";
+                new SqlCommand(queryString, sqlConnection).ExecuteNonQuery();
+            }
+            else
+            {
+                MessageBox.Show("modelId is null");
+            }
+            CloseConnection();
+        }
+
+        private string GetOrderIdByModel(OrderModel model)
+        {
+            string id = "";
+            string queryString = $"SELECT [id] FROM [RIO1].[dbo].[Orders] WHERE OrderItemId = {model.OrderItemId} AND amount = {model.amount} AND Price = {model.Price}";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                id = reader["id"].ToString();
+            }
+
+            return id;
         }
 
         public void DeleteUser(int id)

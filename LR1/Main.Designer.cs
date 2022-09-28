@@ -34,6 +34,7 @@
             this.DeleteUserButton = new System.Windows.Forms.Button();
             this.showOrdersButton = new System.Windows.Forms.Button();
             this.showItemsBitton = new System.Windows.Forms.Button();
+            this.InsertOrderButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,11 +96,22 @@
             this.showItemsBitton.UseVisualStyleBackColor = true;
             this.showItemsBitton.Click += new System.EventHandler(this.showItemsBitton_Click);
             // 
+            // InsertOrderButton
+            // 
+            this.InsertOrderButton.Location = new System.Drawing.Point(95, 199);
+            this.InsertOrderButton.Name = "InsertOrderButton";
+            this.InsertOrderButton.Size = new System.Drawing.Size(75, 23);
+            this.InsertOrderButton.TabIndex = 7;
+            this.InsertOrderButton.Text = "Insert order";
+            this.InsertOrderButton.UseVisualStyleBackColor = true;
+            this.InsertOrderButton.Click += new System.EventHandler(this.InsertOrderButton_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(425, 260);
+            this.Controls.Add(this.InsertOrderButton);
             this.Controls.Add(this.showItemsBitton);
             this.Controls.Add(this.showOrdersButton);
             this.Controls.Add(this.DeleteUserButton);
@@ -120,6 +132,7 @@
         private System.Windows.Forms.Button DeleteUserButton;
         private System.Windows.Forms.Button showOrdersButton;
         private System.Windows.Forms.Button showItemsBitton;
+        private System.Windows.Forms.Button InsertOrderButton;
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using LR1.Models;
+﻿using LR1.Forms;
+using LR1.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,12 +56,13 @@ namespace LR1
             {
                 dataGridView1.Rows.Add(l.id, l.Name, l.Email);
             }
+            dataGridView1.Select();
         }
 
         private void InsertUserButton_Click(object sender, EventArgs e)
         {
-            var inserUserForm = new InsertUserFrom();
-            inserUserForm.Show();
+            var insertUserForm = new InsertUserFrom();
+            insertUserForm.Show();
         }
 
         private void DeleteUserButton_Click(object sender, EventArgs e)
@@ -74,16 +76,16 @@ namespace LR1
 
         private void showOrdersButton_Click(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Clear();
-            dataGridView1.Columns.Clear();
-            //var id = dataGridView1.SelectedRows.
             List<int> list = new List<int>();
-            for(int i = 0; i < dataGridView1.SelectedRows.Count; i++)
+            for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
             {
                 list.Add((int)dataGridView1.SelectedRows[i].Cells[0].Value);
             }
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            //var id = dataGridView1.SelectedRows.
             CreateColumnsOrders();
-            var orderList = repo.GetOrdersList();
+            var orderList = repo.GetOrdersList(list);
             foreach (var l in orderList)
             {
                 dataGridView1.Rows.Add(l.id, l.OrderItemId, l.amount, l.Price);
@@ -93,20 +95,25 @@ namespace LR1
 
         private void showItemsBitton_Click(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Clear();
-            dataGridView1.Columns.Clear();
-            //var id = dataGridView1.SelectedRows.
             List<int> list = new List<int>();
             for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
             {
                 list.Add((int)dataGridView1.SelectedRows[i].Cells[0].Value);
             }
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
             CreateColumnsItems();
-            var itemList = repo.GetItemsList();
+            var itemList = repo.GetItemsList(list);
             foreach (var l in itemList)
             {
                 dataGridView1.Rows.Add(l.id, l.Name);
             }
+        }
+
+        private void InsertOrderButton_Click(object sender, EventArgs e)
+        {
+            var insertOrderForm = new InsertOrderForm(dataGridView1.CurrentRow.Cells[0].Value.ToString());
+            insertOrderForm.Show();
         }
     }
 }
