@@ -13,7 +13,7 @@ namespace LR1
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if ((textBox1.Text != "")&&(textBox2.Text != ""))
+            if ((textBox1.Text != "") && (textBox2.Text != ""))
             {
                 (new SqlWorker()).InsertUser(new UserModel()
                 {

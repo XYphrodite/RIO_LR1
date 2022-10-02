@@ -12,25 +12,25 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LR1.Forms
 {
-    public partial class InsertOrderForm : Form
+    public partial class InsertDeliveryForm : Form
     {
-        public InsertOrderForm(int userId)
+        public InsertDeliveryForm(int orderId)
         {
             InitializeComponent();
-            UserId = userId;
+            OrderId = orderId;
         }
 
-        private int UserId { get; }
+        private int OrderId { get; }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if ((AmountTextBox.Text != "") && (PriceTextBox.Text != ""))
+            if ((NametextBox.Text != "")&& (CosttextBox.Text != ""))
             {
-                (new SqlWorker()).InsertOrder(new OrderModel()
+                (new SqlWorker()).InsertDelivery(new DeliveryModel()
                 {
-                    userId = UserId,
-                    amount = int.Parse(AmountTextBox.Text),
-                    cost = int.Parse(PriceTextBox.Text)
+                    orderId = OrderId,
+                    companyName = NametextBox.Text,
+                    cost = int.Parse(CosttextBox.Text)
                 });
                 this.Close();
             }

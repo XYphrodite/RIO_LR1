@@ -10,9 +10,9 @@ namespace LR1.Models
     public class OrderModel
     {
         [Key]
-        public string id { get; set; }
-        public string OrderItemId { get; set; }
+        public int id { get; set; }
+        public int userId { get; set; }
         public int amount { get; set; }
-        public int Price { get; set; }
+        public int cost { get; set; }
     }
 }

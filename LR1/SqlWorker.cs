@@ -34,7 +34,7 @@ namespace LR1
             }
         }
 
-        public List<UserModel> getListOfMembers()
+        public List<UserModel> getListOfUsers()
         {
             tryConnect();
             List<UserModel> list = new List<UserModel>();
@@ -62,39 +62,15 @@ namespace LR1
             CloseConnection();
         }
 
-        public void InsertOrder(OrderModel model, string userId)
+        public void InsertOrder(OrderModel model)
         {
             tryConnect();
-            //insert order
-            string queryString = $"INSERT INTO [RIO1].[dbo].[Orders] (OrderItemId, amount, Price) VALUES ('{model.OrderItemId}', '{model.amount}', '{model.Price}');";
+            string queryString = $"INSERT INTO [RIO1].[dbo].[Orders] (userId, amount, cost) VALUES ('{model.userId}', '{model.amount}', '{model.cost}');";
             SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
             sqlCommand.ExecuteNonQuery();
-            string modelId = GetOrderIdByModel(model);
-            if (modelId != null)
-            {
-                queryString = $"INSERT INTO [RIO1].[dbo].[UserOrder] (userId, ModelId) VALUES ('{userId}', '{modelId}');";
-                new SqlCommand(queryString, sqlConnection).ExecuteNonQuery();
-            }
-            else
-            {
-                MessageBox.Show("modelId is null");
-            }
             CloseConnection();
         }
 
-        private string GetOrderIdByModel(OrderModel model)
-        {
-            string id = "";
-            string queryString = $"SELECT [id] FROM [RIO1].[dbo].[Orders] WHERE OrderItemId = {model.OrderItemId} AND amount = {model.amount} AND Price = {model.Price}";
-            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
-            SqlDataReader reader = sqlCommand.ExecuteReader();
-            while (reader.Read())
-            {
-                id = reader["id"].ToString();
-            }
-
-            return id;
-        }
 
         public void DeleteUser(int id)
         {
@@ -104,12 +80,19 @@ namespace LR1
             sqlCommand.ExecuteNonQuery();
             CloseConnection();
         }
-
-        private List<int> GetUserOrder(List<int> id)
+        public void DeleteOrder(int id)
         {
             tryConnect();
-            //List<UserOrderModel> list = new List<UserOrderModel>();
-            List<int> list = new List<int>();
+            string queryString = $"DELETE FROM [RIO1].[dbo].[Orders] WHERE id='{id}';";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            CloseConnection();
+        }
+
+        public List<OrderModel> GetOrdersList(List<int> id)
+        {
+            tryConnect();
+            List<OrderModel> list = new List<OrderModel>();
             string l = "";
             for (int i = 0; i < id.Count; i++)
             {
@@ -118,43 +101,16 @@ namespace LR1
                     l += ",";
 
             }
-            string queryString = $"SELECT [userId] ,[ModelId] FROM [RIO1].[dbo].[UserOrder] WHERE userId IN (" +l+")";
-            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
-            SqlDataReader reader = sqlCommand.ExecuteReader();
-            while (reader.Read())
-            {
-                //UserOrderModel uo = new UserOrderModel();
-                //uo.userId = (string)reader["userId"];
-                //uo.ModelId = (string)reader["ModelId"];
-                list.Add((int)reader["ModelId"]);
-            }
-            CloseConnection();
-            return list;
-        }
-
-        public List<OrderModel> GetOrdersList(List<int> id)
-        {
-            List<int> newid = GetUserOrder(id);
-            tryConnect();
-            List<OrderModel> list = new List<OrderModel>();
-            string l = "";
-            for(int i=0;i<newid.Count;i++)
-            {
-                l += "'" + newid[i].ToString() + "'";
-                if (i + 1 != newid.Count)
-                    l += ",";
-                
-            }
-            string queryString = $"SELECT [id] ,[OrderItemId] ,[amount] ,[Price] FROM [RIO1].[dbo].[Orders] WHERE id IN ("+l+")";
+            string queryString = $"SELECT [id] ,[userId] ,[amount] ,[cost] FROM [RIO1].[dbo].[Orders] WHERE id IN (" + l + ")";
             SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
             SqlDataReader reader = sqlCommand.ExecuteReader();
             while (reader.Read())
             {
                 OrderModel o = new OrderModel();
-                o.id = (string)reader["id"];
-                o.OrderItemId = (string)reader["OrderItemId"];
+                o.id = (int)reader["id"];
+                o.userId = (int)reader["userId"];
                 o.amount = (int)reader["amount"];
-                o.Price = (int)reader["price"];
+                o.cost = (int)reader["cost"];
                 list.Add(o);
             }
             CloseConnection();
@@ -164,27 +120,28 @@ namespace LR1
         {
             tryConnect();
             List<OrderModel> list = new List<OrderModel>();
-            string queryString = $"SELECT [id] ,[OrderItemId] ,[amount] ,[Price] FROM [RIO1].[dbo].[Orders]";
+            string queryString = $"SELECT [id] ,[userId] ,[amount] ,[cost] FROM [RIO1].[dbo].[Orders]";
             SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
             SqlDataReader reader = sqlCommand.ExecuteReader();
             while (reader.Read())
             {
                 OrderModel o = new OrderModel();
-                o.id = (string)reader["id"];
-                o.OrderItemId = (string)reader["OrderItemId"];
+                o.id = (int)reader["id"];
+                o.userId = (int)reader["userId"];
                 o.amount = (int)reader["amount"];
-                o.Price = (int)reader["price"];
+                o.cost = (int)reader["cost"];
                 list.Add(o);
             }
             CloseConnection();
             return list;
         }
 
-        private List<int> GetOrderItem(List<int> id)
+
+
+        public List<ItemModel> GetItemsList(List<int> id)
         {
             tryConnect();
-            //List<UserOrderModel> list = new List<UserOrderModel>();
-            List<int> list = new List<int>();
+            List<ItemModel> list = new List<ItemModel>();
             string l = "";
             for (int i = 0; i < id.Count; i++)
             {
@@ -193,41 +150,15 @@ namespace LR1
                     l += ",";
 
             }
-            string queryString = $"SELECT [id] ,[itemId] FROM [RIO1].[dbo].[OrderItem] WHERE id IN (" + l + ")";
-            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
-            SqlDataReader reader = sqlCommand.ExecuteReader();
-            while (reader.Read())
-            {
-                //UserOrderModel uo = new UserOrderModel();
-                //uo.userId = (string)reader["userId"];
-                //uo.ModelId = (string)reader["ModelId"];
-                list.Add((int)reader["itemId"]);
-            }
-            CloseConnection();
-            return list;
-        }
-
-        public List<ItemModel> GetItemsList(List<int> id)
-        {
-            List<int> newid = GetOrderItem(id);
-            tryConnect();
-            List<ItemModel> list = new List<ItemModel>();
-            string l = "";
-            for (int i = 0; i < newid.Count; i++)
-            {
-                l += "'" + newid[i].ToString() + "'";
-                if (i + 1 != newid.Count)
-                    l += ",";
-
-            }
-            string queryString = $"SELECT [id] ,[Name] FROM [RIO1].[dbo].[Items] WHERE id IN (" + l + ")";
+            string queryString = $"SELECT [id] ,[Name], [orderId] FROM [RIO1].[dbo].[Items] WHERE orderId IN (" + l + ")";
             SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
             SqlDataReader reader = sqlCommand.ExecuteReader();
             while (reader.Read())
             {
                 ItemModel o = new ItemModel();
-                o.id = (string)reader["id"];
+                o.id = (int)reader["id"];
                 o.Name = (string)reader["Name"];
+                o.orderId = (int)reader["orderId"];
                 list.Add(o);
             }
             CloseConnection();
@@ -237,14 +168,15 @@ namespace LR1
         {
             tryConnect();
             List<ItemModel> list = new List<ItemModel>();
-            string queryString = $"SELECT [id] ,[Name] FROM [RIO1].[dbo].[Items]";
+            string queryString = $"SELECT [id] ,[Name], [orderId] FROM [RIO1].[dbo].[Items]";
             SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
             SqlDataReader reader = sqlCommand.ExecuteReader();
             while (reader.Read())
             {
                 ItemModel o = new ItemModel();
-                o.id = (string)reader["id"];
+                o.id = (int)reader["id"];
                 o.Name = (string)reader["Name"];
+                o.orderId = (int)reader["orderId"];
                 list.Add(o);
             }
             CloseConnection();
@@ -256,6 +188,150 @@ namespace LR1
             sqlConnection.Close();
         }
 
-        
+        internal void InsertItem(ItemModel model)
+        {
+            tryConnect();
+            string queryString = $"INSERT INTO [RIO1].[dbo].[Items] (orderId, Name) VALUES ('{model.orderId}', '{model.Name}');";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            CloseConnection();
+        }
+
+        internal void DeleteItem(int id)
+        {
+            tryConnect();
+            string queryString = $"DELETE FROM [RIO1].[dbo].[Items] WHERE id='{id}';";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            CloseConnection();
+        }
+
+        internal List<DeliveryModel> GetDeliveryList(List<int> id)
+        {
+            tryConnect();
+            List<DeliveryModel> list = new List<DeliveryModel>();
+            string l = "";
+            for (int i = 0; i < id.Count; i++)
+            {
+                l += "'" + id[i].ToString() + "'";
+                if (i + 1 != id.Count)
+                    l += ",";
+
+            }
+            string queryString = $"SELECT [name], [orderId], [cost] FROM [RIO1].[dbo].[Deliveries] WHERE orderId IN (" + l + ")";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                DeliveryModel d = new DeliveryModel();
+                d.orderId = (int)reader["orderId"];
+                d.companyName = (string)reader["name"];
+                d.cost = (int)reader["cost"];
+                list.Add(d);
+            }
+            CloseConnection();
+            return list;
+        }
+
+        internal List<DeliveryModel> GetDeliveryList()
+        {
+            tryConnect();
+            List<DeliveryModel> list = new List<DeliveryModel>();
+            string queryString = $"SELECT [name], [orderId], [cost] FROM [RIO1].[dbo].[Deliveries]";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                DeliveryModel d = new DeliveryModel();
+                d.orderId = (int)reader["orderId"];
+                d.companyName = (string)reader["name"];
+                d.cost = (int)reader["cost"];
+                list.Add(d);
+            }
+            CloseConnection();
+            return list;
+        }
+
+        internal void InsertDelivery(DeliveryModel model)
+        {
+            tryConnect();
+            string queryString = $"INSERT INTO [RIO1].[dbo].[Deliveries] (orderId, Name, cost) VALUES ('{model.orderId}', '{model.companyName}', '{model.cost}');";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            CloseConnection();
+        }
+
+        internal void DeleteDelivery(int id)
+        {
+            tryConnect();
+            string queryString = $"DELETE FROM [RIO1].[dbo].[Deliveries] WHERE orderId='{id}';";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            CloseConnection();
+        }
+
+        internal List<monthlyCostModel> GetCostsList(List<int> id)
+        {
+            tryConnect();
+            List<monthlyCostModel> list = new List<monthlyCostModel>();
+            string l = "";
+            for (int i = 0; i < id.Count; i++)
+            {
+                l += "'" + id[i].ToString() + "'";
+                if (i + 1 != id.Count)
+                    l += ",";
+
+            }
+            string queryString = $"SELECT [itemId], [monthName], [cost] FROM [RIO1].[dbo].[MonthlyCost] WHERE itemId IN (" + l + ")";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                monthlyCostModel m = new monthlyCostModel();
+                m.itemId = (int)reader["itemId"];
+                m.monthName = (string)reader["monthName"];
+                m.cost = (int)reader["cost"];
+                list.Add(m);
+            }
+            CloseConnection();
+            return list;
+        }
+
+        internal List<monthlyCostModel> GetCostsList()
+        {
+            tryConnect();
+            List<monthlyCostModel> list = new List<monthlyCostModel>();
+            string queryString = $"SELECT [itemId], [monthName], [cost] FROM [RIO1].[dbo].[MonthlyCost]";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                monthlyCostModel m = new monthlyCostModel();
+                m.itemId = (int)reader["itemId"];
+                m.monthName = (string)reader["monthName"];
+                m.cost = (int)reader["cost"];
+                list.Add(m);
+            }
+            CloseConnection();
+            return list;
+        }
+
+        internal void InsertCost(monthlyCostModel model)
+        {
+            tryConnect();
+            string queryString = $"INSERT INTO [RIO1].[dbo].[MonthlyCost] (itemId, monthName, cost) VALUES ('{model.itemId}', '{model.monthName}', '{model.cost}');";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            CloseConnection();
+        }
+
+        internal void DeleteCost(int id)
+        {
+            tryConnect();
+            string queryString = $"DELETE FROM [RIO1].[dbo].[MonthlyCost] WHERE itemId='{id}';";
+            SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+            CloseConnection();
+        }
     }
 }

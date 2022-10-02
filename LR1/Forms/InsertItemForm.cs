@@ -8,29 +8,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LR1.Forms
 {
-    public partial class InsertOrderForm : Form
+    public partial class InsertItemForm : Form
     {
-        public InsertOrderForm(int userId)
+        public InsertItemForm(int orderId)
         {
             InitializeComponent();
-            UserId = userId;
+            OrderId = orderId;
         }
 
-        private int UserId { get; }
+        private int OrderId { get; }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if ((AmountTextBox.Text != "") && (PriceTextBox.Text != ""))
+            if (textBox1.Text != "")
             {
-                (new SqlWorker()).InsertOrder(new OrderModel()
+                (new SqlWorker()).InsertItem(new ItemModel()
                 {
-                    userId = UserId,
-                    amount = int.Parse(AmountTextBox.Text),
-                    cost = int.Parse(PriceTextBox.Text)
+                    orderId = OrderId,
+                    Name = textBox1.Text
                 });
                 this.Close();
             }
