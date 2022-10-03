@@ -1,13 +1,7 @@
 ﻿using LR1.Models;
-using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data.SqlTypes;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace LR1
 {
@@ -101,7 +95,7 @@ namespace LR1
                     l += ",";
 
             }
-            string queryString = $"SELECT [id] ,[userId] ,[amount] ,[cost] FROM [RIO1].[dbo].[Orders] WHERE id IN (" + l + ")";
+            string queryString = $"SELECT [id] ,[userId] ,[amount] ,[cost] FROM [RIO1].[dbo].[Orders] WHERE userId IN (" + l + ")";
             SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
             SqlDataReader reader = sqlCommand.ExecuteReader();
             while (reader.Read())
@@ -332,6 +326,15 @@ namespace LR1
             SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
             sqlCommand.ExecuteNonQuery();
             CloseConnection();
+        }
+
+        public DataTable Query(string query)
+        {
+            tryConnect();
+            SqlDataAdapter da = new SqlDataAdapter(query, sqlConnection);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
         }
     }
 }

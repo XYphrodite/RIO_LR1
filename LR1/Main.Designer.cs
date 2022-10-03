@@ -44,12 +44,14 @@
             this.showCostsButton = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.SendToBd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // ShowUsersButton
             // 
-            this.ShowUsersButton.Location = new System.Drawing.Point(13, 170);
+            this.ShowUsersButton.Location = new System.Drawing.Point(10, 448);
             this.ShowUsersButton.Name = "ShowUsersButton";
             this.ShowUsersButton.Size = new System.Drawing.Size(75, 23);
             this.ShowUsersButton.TabIndex = 1;
@@ -62,12 +64,12 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(13, 13);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(495, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(495, 427);
             this.dataGridView1.TabIndex = 2;
             // 
             // InsertUserButton
             // 
-            this.InsertUserButton.Location = new System.Drawing.Point(13, 200);
+            this.InsertUserButton.Location = new System.Drawing.Point(10, 478);
             this.InsertUserButton.Name = "InsertUserButton";
             this.InsertUserButton.Size = new System.Drawing.Size(75, 23);
             this.InsertUserButton.TabIndex = 3;
@@ -77,7 +79,7 @@
             // 
             // DeleteUserButton
             // 
-            this.DeleteUserButton.Location = new System.Drawing.Point(13, 230);
+            this.DeleteUserButton.Location = new System.Drawing.Point(10, 508);
             this.DeleteUserButton.Name = "DeleteUserButton";
             this.DeleteUserButton.Size = new System.Drawing.Size(75, 23);
             this.DeleteUserButton.TabIndex = 4;
@@ -87,7 +89,7 @@
             // 
             // showOrdersButton
             // 
-            this.showOrdersButton.Location = new System.Drawing.Point(94, 169);
+            this.showOrdersButton.Location = new System.Drawing.Point(91, 447);
             this.showOrdersButton.Name = "showOrdersButton";
             this.showOrdersButton.Size = new System.Drawing.Size(75, 23);
             this.showOrdersButton.TabIndex = 5;
@@ -97,7 +99,7 @@
             // 
             // showItemsBitton
             // 
-            this.showItemsBitton.Location = new System.Drawing.Point(176, 168);
+            this.showItemsBitton.Location = new System.Drawing.Point(173, 446);
             this.showItemsBitton.Name = "showItemsBitton";
             this.showItemsBitton.Size = new System.Drawing.Size(75, 23);
             this.showItemsBitton.TabIndex = 6;
@@ -107,7 +109,7 @@
             // 
             // InsertOrderButton
             // 
-            this.InsertOrderButton.Location = new System.Drawing.Point(95, 199);
+            this.InsertOrderButton.Location = new System.Drawing.Point(92, 477);
             this.InsertOrderButton.Name = "InsertOrderButton";
             this.InsertOrderButton.Size = new System.Drawing.Size(75, 23);
             this.InsertOrderButton.TabIndex = 7;
@@ -117,7 +119,7 @@
             // 
             // deleteOrderButton
             // 
-            this.deleteOrderButton.Location = new System.Drawing.Point(95, 229);
+            this.deleteOrderButton.Location = new System.Drawing.Point(92, 507);
             this.deleteOrderButton.Name = "deleteOrderButton";
             this.deleteOrderButton.Size = new System.Drawing.Size(75, 23);
             this.deleteOrderButton.TabIndex = 8;
@@ -127,7 +129,7 @@
             // 
             // inserItemButton
             // 
-            this.inserItemButton.Location = new System.Drawing.Point(176, 198);
+            this.inserItemButton.Location = new System.Drawing.Point(173, 476);
             this.inserItemButton.Name = "inserItemButton";
             this.inserItemButton.Size = new System.Drawing.Size(75, 23);
             this.inserItemButton.TabIndex = 9;
@@ -137,7 +139,7 @@
             // 
             // deleteItemButton
             // 
-            this.deleteItemButton.Location = new System.Drawing.Point(177, 229);
+            this.deleteItemButton.Location = new System.Drawing.Point(174, 507);
             this.deleteItemButton.Name = "deleteItemButton";
             this.deleteItemButton.Size = new System.Drawing.Size(75, 23);
             this.deleteItemButton.TabIndex = 10;
@@ -147,7 +149,7 @@
             // 
             // showDeliveryInfoButton
             // 
-            this.showDeliveryInfoButton.Location = new System.Drawing.Point(258, 168);
+            this.showDeliveryInfoButton.Location = new System.Drawing.Point(255, 446);
             this.showDeliveryInfoButton.Name = "showDeliveryInfoButton";
             this.showDeliveryInfoButton.Size = new System.Drawing.Size(128, 23);
             this.showDeliveryInfoButton.TabIndex = 11;
@@ -157,7 +159,7 @@
             // 
             // insertDeliveryInfoButton
             // 
-            this.insertDeliveryInfoButton.Location = new System.Drawing.Point(258, 197);
+            this.insertDeliveryInfoButton.Location = new System.Drawing.Point(255, 475);
             this.insertDeliveryInfoButton.Name = "insertDeliveryInfoButton";
             this.insertDeliveryInfoButton.Size = new System.Drawing.Size(128, 23);
             this.insertDeliveryInfoButton.TabIndex = 12;
@@ -167,7 +169,7 @@
             // 
             // deleteDeliveryInfoButton
             // 
-            this.deleteDeliveryInfoButton.Location = new System.Drawing.Point(258, 228);
+            this.deleteDeliveryInfoButton.Location = new System.Drawing.Point(255, 506);
             this.deleteDeliveryInfoButton.Name = "deleteDeliveryInfoButton";
             this.deleteDeliveryInfoButton.Size = new System.Drawing.Size(128, 23);
             this.deleteDeliveryInfoButton.TabIndex = 13;
@@ -177,7 +179,7 @@
             // 
             // showCostsButton
             // 
-            this.showCostsButton.Location = new System.Drawing.Point(392, 168);
+            this.showCostsButton.Location = new System.Drawing.Point(389, 446);
             this.showCostsButton.Name = "showCostsButton";
             this.showCostsButton.Size = new System.Drawing.Size(75, 23);
             this.showCostsButton.TabIndex = 14;
@@ -187,7 +189,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(392, 197);
+            this.button5.Location = new System.Drawing.Point(389, 475);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 15;
@@ -197,7 +199,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(392, 228);
+            this.button6.Location = new System.Drawing.Point(389, 506);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 16;
@@ -205,11 +207,31 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(515, 13);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(389, 248);
+            this.richTextBox1.TabIndex = 17;
+            this.richTextBox1.Text = "";
+            // 
+            // SendToBd
+            // 
+            this.SendToBd.Location = new System.Drawing.Point(515, 268);
+            this.SendToBd.Name = "SendToBd";
+            this.SendToBd.Size = new System.Drawing.Size(389, 23);
+            this.SendToBd.TabIndex = 18;
+            this.SendToBd.Text = "Send";
+            this.SendToBd.UseVisualStyleBackColor = true;
+            this.SendToBd.Click += new System.EventHandler(this.SendToBd_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(552, 260);
+            this.ClientSize = new System.Drawing.Size(911, 540);
+            this.Controls.Add(this.SendToBd);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.showCostsButton);
@@ -250,6 +272,8 @@
         private System.Windows.Forms.Button showCostsButton;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button SendToBd;
     }
 }
 

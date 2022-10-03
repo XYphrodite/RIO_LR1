@@ -1,5 +1,6 @@
 ﻿using LR1.Forms;
 using LR1.Models;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -271,6 +272,22 @@ namespace LR1
                 dataGridView1.Rows.RemoveAt(item.Index);
                 new SqlWorker().DeleteCost((int)item.Cells[0].Value);
             }
+        }
+
+        private void SendToBd_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            try
+            {
+                dataGridView1.DataSource = repo.Query(richTextBox1.Text);
+                
+            }
+            catch
+            {
+
+            }
+            richTextBox1.Text = "";
         }
     }
 }
